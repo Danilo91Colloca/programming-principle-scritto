@@ -168,8 +168,12 @@ class MovieLibrary:
         return __longest_title[0]["title"]
 
     def get_titles_betweens_years(self, start_year: int, end_year: int):
-        __title_list_list:[]
-        pass
+        __title_list_list=[]
+        for i, key in enumerate(self.movies):
+            if key["year"] >= start_year and key["year"] <= end_year:
+                __title_list_list.append(key["title"])
+        return __title_list_list
+
 
 """ define function that deserialize json """       
 def jsonDeserializer(json_to_deserialize):

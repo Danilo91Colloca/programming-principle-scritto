@@ -163,6 +163,12 @@ class MovieLibrary:
             all_years.append(float(key["year"]))
         return sum(all_years)/len(all_years)
 
+    def get_longest_title(self):
+        longest_title = sorted(self.movies, key=lambda k: len(k["title"]), reverse=True)
+        return longest_title[0]["title"]
+
+
+
 """ define function that deserialize json """       
 def jsonDeserializer(json_to_deserialize):
     with open(json_to_deserialize, "r") as all_movies:
@@ -193,5 +199,7 @@ library = MovieLibrary(file_json_path, movies_list)
 # print(len(library.get_movies_by_genre("DRama")))
 
 # print(library.get_oldest_movie_title())
-print(library.get_average_release_year())
-print(type(library.get_average_release_year()))
+# print(library.get_average_release_year())
+# print(type(library.get_average_release_year()))
+
+print(library.get_longest_title())

@@ -1,5 +1,5 @@
 import json
-
+import collections
 """
 production file json
 
@@ -174,7 +174,13 @@ class MovieLibrary:
                 __title_list_list.append(key["title"])
         return __title_list_list
 
-
+    def get_most_common_year(self):
+        __all_years = []
+        for i, key in enumerate(self.movies):
+            __all_years.append(key["year"])
+        count_most_common = collections.Counter(__all_years)     
+        return count_most_common.most_common()[0][0]
+    
 """ define function that deserialize json """       
 def jsonDeserializer(json_to_deserialize):
     with open(json_to_deserialize, "r") as all_movies:
@@ -209,4 +215,5 @@ library = MovieLibrary(file_json_path, movies_list)
 # print(type(library.get_average_release_year()))
 
 # print(library.get_longest_title())
-print(library.get_titles_betweens_years(1990,1995))
+# print(library.get_titles_betweens_years(1990,1995))
+# print(library.get_most_common_year())

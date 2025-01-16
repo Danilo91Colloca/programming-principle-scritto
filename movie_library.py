@@ -114,7 +114,7 @@ class MovieLibrary:
     def count_movies(self):
         return len(self.movies)
     
-    def get_movie_by_title(self, title):
+    def get_movie_by_title(self, title: str):
         __index = None
         for index_item, key in enumerate(self.movies):
             if key["title"].casefold() == title.casefold():

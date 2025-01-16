@@ -116,6 +116,15 @@ class MovieLibrary:
                 break
         print(self.movies[__index])
 
+    def get_movie_by_title_substring(self, substring):
+        movies_by_substring=[]
+        for index_item, key in enumerate(self.movies):
+            if key["title"].find(substring) > -1:
+                movies_by_substring.append(self.movies[index_item])
+        return movies_by_substring
+
+
+
 """ define function that deserialize json """       
 def jsonDeserializer(json_to_deserialize):
     with open(json_to_deserialize, "r") as all_movies:
@@ -131,3 +140,5 @@ library = MovieLibrary(file_json_path, movies_list)
 
 #print(library.count_movies())
 #print(library.get_movie_by_title("the matrix"))
+
+#print(library.get_movie_by_title_substring("rr"))

@@ -39,7 +39,7 @@ class MovieLibrary:
         self.__update_json_file(self.movies)
     
     def remove_movie(self, title):
-        index = None
+        __index = None
         for index_item, key in enumerate(self.movies):
             """ 
             casefold() consent to ignore 
@@ -47,13 +47,58 @@ class MovieLibrary:
             considering all in lowercase
             """
             if key["title"].casefold() == title.casefold():
-                index = index_item
+                __index = index_item
                 break
-        if index is not None:
-            self.movies.pop(index)
+        if __index is not None:
+            self.movies.pop(__index)
             self.__update_json_file(self.movies)
-    def update_movie():
-        pass
+
+    def update_movie(self,title: str, director: str=None,year: int=None,genres: list=None):
+        __index = None
+        for index_item, key in enumerate(self.movies):
+            if key["title"].casefold() == title.casefold():
+                __index = index_item
+                break
+        if __index is not None:
+            match (director, year, genres):
+                case (None, None, None):
+                    pass
+                case (director, None, None):
+                    self.movies[__index].update({
+                        "director": director
+                    })
+                case (None, None, genres):
+                    self.movies[__index].update({
+                        "genres": genres
+                    })            
+                case (None, year, None):
+                    self.movies[__index].update({
+                        "year": year
+                    })            
+                case (director, None, genres):
+                    self.movies[__index].update({
+                        "director": director,
+                        "genres": genres
+                    })
+                case (director, year, None):
+                    self.movies[__index].update({
+                        "director": director,
+                        "year": year
+                    })            
+                case (None, year, genres):
+                    self.movies[__index].update({
+                        "year": year,
+                        "genres": genres
+                    })            
+                case (director,year,genres):
+                    self.movies[__index].update({
+                        "director":director,
+                        "year": year,
+                        "genres": genres
+                    })    
+            self.__update_json_file(self.movies)
+                
+            
 
 
 """ define function that deserialize json """       
@@ -66,3 +111,4 @@ movies_list = jsonDeserializer(file_json_path)
 library = MovieLibrary(file_json_path, movies_list)
 #library.add_movie("Gatto","danny", 1991, ["speriamo", "bene"])
 #library.remove_movie("gAtto")
+#library.update_movie("gatto","Top",1500, ["forse", "top"])

@@ -157,6 +157,12 @@ class MovieLibrary:
         reorderd_movies_list = sorted(self.movies,key=lambda x: x['year'])
         return reorderd_movies_list[0]
         
+    def get_average_release_year(self):
+        all_years = []
+        for index_item, key in enumerate(self.movies):
+            all_years.append(float(key["year"]))
+        return sum(all_years)/len(all_years)
+
 """ define function that deserialize json """       
 def jsonDeserializer(json_to_deserialize):
     with open(json_to_deserialize, "r") as all_movies:
@@ -167,7 +173,7 @@ movies_list = jsonDeserializer(file_json_path)
 library = MovieLibrary(file_json_path, movies_list)
 # print(library.get_movies())
 
-# library.add_movie("gatto","danny", 1991, ["speriamo", "bene"])
+# library.add_movie("ciao","danny", 1500, ["speriamo", "bene"])
 # library.remove_movie("TEST")
 # library.update_movie("gatto","Top",1500, ["forse", "top"])
 
@@ -186,4 +192,6 @@ library = MovieLibrary(file_json_path, movies_list)
 # print(library.get_movies_by_genre("DRama"))
 # print(len(library.get_movies_by_genre("DRama")))
 
-print(library.get_oldest_movie_title())
+# print(library.get_oldest_movie_title())
+print(library.get_average_release_year())
+print(type(library.get_average_release_year()))

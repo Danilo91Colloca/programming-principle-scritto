@@ -178,8 +178,8 @@ class MovieLibrary:
         __all_years = []
         for i, key in enumerate(self.movies):
             __all_years.append(key["year"])
-        count_most_common = collections.Counter(__all_years)     
-        return count_most_common.most_common()[0][0]
+        __count_most_common = collections.Counter(__all_years)     
+        return __count_most_common.most_common()[0][0]
     
 """ define function that deserialize json """       
 def jsonDeserializer(json_to_deserialize):

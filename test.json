@@ -90,23 +90,5 @@
             "Adventure",
             "Drama"
         ]
-    },
-    {
-        "title": "test",
-        "director": "danny",
-        "year": 1991,
-        "genres": [
-            "speriamo",
-            "bene"
-        ]
-    },
-    {
-        "title": "cane",
-        "director": "danny",
-        "year": 1991,
-        "genres": [
-            "speriamo",
-            "bene"
-        ]
     }
 ]

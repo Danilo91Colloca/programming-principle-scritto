@@ -1,4 +1,5 @@
 import json
+
 """production file json"""
 #file_json_path = "/Applications/MAMP/htdocs/programming-principle-scritto/movies.json"
 """test file json"""
@@ -18,6 +19,7 @@ class MovieLibrary:
     def __init__(self, json_file, movies):
         self.json_file = json_file
         self.movies = movies
+        
     
     def get_movies(self):
         return self.movies
@@ -34,8 +36,24 @@ class MovieLibrary:
             "genres": genres
         }
         self.movies.append(data)
-
         self.__update_json_file(self.movies)
+    
+    def remove_movie(self, title):
+        index = None
+        for index_item, key in enumerate(self.movies):
+            """ 
+            casefold() consent to ignore 
+            case-sensitiveness 
+            considering all in lowercase
+            """
+            if key["title"].casefold() == title.casefold():
+                index = index_item
+                break
+        if index is not None:
+            self.movies.pop(index)
+            self.__update_json_file(self.movies)
+    def update_movie():
+        pass
 
 
 """ define function that deserialize json """       
@@ -46,4 +64,5 @@ def jsonDeserializer(json_to_deserialize):
 movies_list = jsonDeserializer(file_json_path)
 
 library = MovieLibrary(file_json_path, movies_list)
-library.add_movie("cane","danny", 1991, ["speriamo", "bene"])
+#library.add_movie("Gatto","danny", 1991, ["speriamo", "bene"])
+#library.remove_movie("gAtto")

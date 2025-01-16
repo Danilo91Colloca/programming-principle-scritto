@@ -29,13 +29,13 @@ class MovieLibrary:
             return json.dump(new_movie, inside_movies, indent=4)
 
     def add_movie(self, title:str, director:str, year:int, genres:list):
-        data = {
+        __data = {
             "title": title,
             "director": director,
             "year": year,
             "genres": genres
         }
-        self.movies.append(data)
+        self.movies.append(__data)
         self.__update_json_file(self.movies)
     
     def remove_movie(self, title):
@@ -99,11 +99,11 @@ class MovieLibrary:
             self.__update_json_file(self.movies)
                 
     def get_movie_titles(self):
-        all_titles=[]
+        __all_titles=[]
         for title in self.movies:
-            all_titles.append(title["title"])
+            __all_titles.append(title["title"])
         
-        return all_titles
+        return __all_titles
     
     def count_movies(self):
         return len(self.movies)
@@ -114,15 +114,23 @@ class MovieLibrary:
             if key["title"].casefold() == title.casefold():
                 __index = index_item
                 break
-        print(self.movies[__index])
+        return self.movies[__index]
 
-    def get_movie_by_title_substring(self, substring):
-        movies_by_substring=[]
+    def get_movie_by_title_substring(self, substring:str):
+        __movies_by_substring=[]
         for index_item, key in enumerate(self.movies):
             if key["title"].find(substring) > -1:
-                movies_by_substring.append(self.movies[index_item])
-        return movies_by_substring
+                __movies_by_substring.append(self.movies[index_item])
+        return __movies_by_substring
 
+    def get_movies_by_year(self,year: int):
+        __index = None
+        __all_movies_by_year = []
+        for index_item, key in enumerate(self.movies):
+            if key["year"] == year:
+                __index = index_item
+                __all_movies_by_year.append(self.movies[__index])
+        return __all_movies_by_year
 
 
 """ define function that deserialize json """       
@@ -133,12 +141,18 @@ def jsonDeserializer(json_to_deserialize):
 movies_list = jsonDeserializer(file_json_path)
 
 library = MovieLibrary(file_json_path, movies_list)
-#library.add_movie("test","danny", 1991, ["speriamo", "bene"])
+#print(library.get_movies())
+
+#library.add_movie("gatto","danny", 1991, ["speriamo", "bene"])
 #library.remove_movie("TEST")
 #library.update_movie("gatto","Top",1500, ["forse", "top"])
+
 #print(type(library.get_movie_titles()))
+#print(library.get_movie_titles())
 
 #print(library.count_movies())
 #print(library.get_movie_by_title("the matrix"))
 
-#print(library.get_movie_by_title_substring("rr"))
+#print(library.get_movie_by_title_substring("Lord"))
+
+print(library.get_movies_by_year(1994))

@@ -99,5 +99,14 @@
             "speriamo",
             "bene"
         ]
+    },
+    {
+        "title": "gatto",
+        "director": "danny",
+        "year": 1991,
+        "genres": [
+            "speriamo",
+            "bene"
+        ]
     }
 ]

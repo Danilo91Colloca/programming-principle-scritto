@@ -139,35 +139,37 @@ class MovieLibrary:
         return __all_movies_by_year
 
     def count_movies_by_director(self,director: str):
-        count_movies_by_director = 0
+        __count_movies_by_director = 0
         for i, key in enumerate(self.movies):
             if key["director"].casefold() == director.casefold():
-                count_movies_by_director += 1
-        return count_movies_by_director
+                __count_movies_by_director += 1
+        return __count_movies_by_director
         
     def get_movies_by_genre(self, genre: str):
-        movies_by_genre = []
+        __movies_by_genre = []
         for index_movie, key in enumerate(self.movies):
             for i in key["genres"]:
                 if i.casefold() == genre.casefold():
-                    movies_by_genre.append(self.movies[index_movie])
-        return movies_by_genre
+                    __movies_by_genre.append(self.movies[index_movie])
+        return __movies_by_genre
 
     def get_oldest_movie_title(self):
-        reorderd_movies_list = sorted(self.movies,key=lambda x: x['year'])
-        return reorderd_movies_list[0]
+        __reorderd_movies_list = sorted(self.movies,key=lambda x: x['year'])
+        return __reorderd_movies_list[0]
         
     def get_average_release_year(self):
-        all_years = []
+        __all_years_to_sum = []
         for index_item, key in enumerate(self.movies):
-            all_years.append(float(key["year"]))
-        return sum(all_years)/len(all_years)
+            __all_years_to_sum.append(float(key["year"]))
+        return sum(__all_years_to_sum)/len(__all_years_to_sum)
 
     def get_longest_title(self):
-        longest_title = sorted(self.movies, key=lambda k: len(k["title"]), reverse=True)
-        return longest_title[0]["title"]
+        __longest_title = sorted(self.movies, key=lambda k: len(k["title"]), reverse=True)
+        return __longest_title[0]["title"]
 
-
+    def get_titles_betweens_years(self, start_year: int, end_year: int):
+        __title_list_list:[]
+        pass
 
 """ define function that deserialize json """       
 def jsonDeserializer(json_to_deserialize):
@@ -202,4 +204,5 @@ library = MovieLibrary(file_json_path, movies_list)
 # print(library.get_average_release_year())
 # print(type(library.get_average_release_year()))
 
-print(library.get_longest_title())
+# print(library.get_longest_title())
+print(library.get_titles_betweens_years(1990,1995))

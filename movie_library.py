@@ -139,6 +139,16 @@ class MovieLibrary:
                 count_movies_by_director += 1
         return count_movies_by_director
         
+    def get_movies_by_genre(self, genre: str):
+        movies_by_genre = []
+        for index_movie, key in enumerate(self.movies):
+            for i in key["genres"]:
+                if i.casefold() == genre.casefold():
+                    movies_by_genre.append(self.movies[index_movie])
+        return movies_by_genre
+
+    
+
 
 """ define function that deserialize json """       
 def jsonDeserializer(json_to_deserialize):
@@ -164,4 +174,7 @@ library = MovieLibrary(file_json_path, movies_list)
 
 #print(library.get_movies_by_year(1994))
 
-print(library.count_movies_by_director("Christopher NOLAN"))
+#print(library.count_movies_by_director("Christopher NOLAN"))
+
+# print(library.get_movies_by_genre("DRama"))
+# print(len(library.get_movies_by_genre("DRama")))

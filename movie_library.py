@@ -18,8 +18,8 @@ class MovieLibrary:
     """
     def __init__(self, json_file, movies):
         self.json_file = json_file
-        self.movies = movies
-        
+        self.movies = movies   
+
 
     def get_movies(self):
         return self.movies
@@ -107,6 +107,14 @@ class MovieLibrary:
     
     def count_movies(self):
         return len(self.movies)
+    
+    def get_movie_by_title(self, title):
+        __index = None
+        for index_item, key in enumerate(self.movies):
+            if key["title"].casefold() == title.casefold():
+                __index = index_item
+                break
+        print(self.movies[__index])
 
 """ define function that deserialize json """       
 def jsonDeserializer(json_to_deserialize):
@@ -121,4 +129,5 @@ library = MovieLibrary(file_json_path, movies_list)
 #library.update_movie("gatto","Top",1500, ["forse", "top"])
 #print(type(library.get_movie_titles()))
 
-print(library.count_movies())
+#print(library.count_movies())
+#print(library.get_movie_by_title("the matrix"))

@@ -20,7 +20,7 @@ class MovieLibrary:
         self.json_file = json_file
         self.movies = movies
         
-    
+
     def get_movies(self):
         return self.movies
     
@@ -98,7 +98,13 @@ class MovieLibrary:
                     })    
             self.__update_json_file(self.movies)
                 
-            
+    def get_movie_titles(self):
+        all_titles=[]
+        for title in self.movies:
+            all_titles.append(title["title"])
+        
+        return all_titles
+    
 
 
 """ define function that deserialize json """       
@@ -112,3 +118,5 @@ library = MovieLibrary(file_json_path, movies_list)
 #library.add_movie("Gatto","danny", 1991, ["speriamo", "bene"])
 #library.remove_movie("gAtto")
 #library.update_movie("gatto","Top",1500, ["forse", "top"])
+
+print(type(library.get_movie_titles()))

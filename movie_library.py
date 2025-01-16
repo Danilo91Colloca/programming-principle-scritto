@@ -105,7 +105,8 @@ class MovieLibrary:
         
         return all_titles
     
-
+    def count_movies(self):
+        return len(self.movies)
 
 """ define function that deserialize json """       
 def jsonDeserializer(json_to_deserialize):
@@ -115,8 +116,9 @@ def jsonDeserializer(json_to_deserialize):
 movies_list = jsonDeserializer(file_json_path)
 
 library = MovieLibrary(file_json_path, movies_list)
-#library.add_movie("Gatto","danny", 1991, ["speriamo", "bene"])
-#library.remove_movie("gAtto")
+#library.add_movie("test","danny", 1991, ["speriamo", "bene"])
+#library.remove_movie("TEST")
 #library.update_movie("gatto","Top",1500, ["forse", "top"])
+#print(type(library.get_movie_titles()))
 
-print(type(library.get_movie_titles()))
+print(library.count_movies())

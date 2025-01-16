@@ -1,13 +1,20 @@
 import json
 
-"""production file json"""
-#file_json_path = "/Applications/MAMP/htdocs/programming-principle-scritto/movies.json"
+"""
+production file json
+
+file_json_path =
+"/Applications/MAMP/htdocs/programming-principle-scritto/movies.json"
+"""
+
 """test file json"""
 file_json_path = "/Applications/MAMP/htdocs/programming-principle-scritto/test.json"
 
-    
+
 """Define Movie library class"""
 class MovieLibrary:
+
+
     """
         A class rappresenting a library of movies with imports of all movies 
         and a collection of a movie that has title,director,year,genre
@@ -19,7 +26,6 @@ class MovieLibrary:
     def __init__(self, json_file, movies):
         self.json_file = json_file
         self.movies = movies   
-
 
     def get_movies(self):
         return self.movies
@@ -147,9 +153,10 @@ class MovieLibrary:
                     movies_by_genre.append(self.movies[index_movie])
         return movies_by_genre
 
-    
-
-
+    def get_oldest_movie_title(self):
+        reorderd_movies_list = sorted(self.movies,key=lambda x: x['year'])
+        return reorderd_movies_list[0]
+        
 """ define function that deserialize json """       
 def jsonDeserializer(json_to_deserialize):
     with open(json_to_deserialize, "r") as all_movies:
@@ -158,23 +165,25 @@ def jsonDeserializer(json_to_deserialize):
 movies_list = jsonDeserializer(file_json_path)
 
 library = MovieLibrary(file_json_path, movies_list)
-#print(library.get_movies())
+# print(library.get_movies())
 
-#library.add_movie("gatto","danny", 1991, ["speriamo", "bene"])
-#library.remove_movie("TEST")
-#library.update_movie("gatto","Top",1500, ["forse", "top"])
+# library.add_movie("gatto","danny", 1991, ["speriamo", "bene"])
+# library.remove_movie("TEST")
+# library.update_movie("gatto","Top",1500, ["forse", "top"])
 
-#print(type(library.get_movie_titles()))
-#print(library.get_movie_titles())
+# print(type(library.get_movie_titles()))
+# print(library.get_movie_titles())
 
-#print(library.count_movies())
-#print(library.get_movie_by_title("the matrix"))
+# print(library.count_movies())
+# print(library.get_movie_by_title("the matrix"))
 
-#print(library.get_movie_by_title_substring("Lord"))
+# print(library.get_movie_by_title_substring("Lord"))
 
-#print(library.get_movies_by_year(1994))
+# print(library.get_movies_by_year(1994))
 
-#print(library.count_movies_by_director("Christopher NOLAN"))
+# print(library.count_movies_by_director("Christopher NOLAN"))
 
 # print(library.get_movies_by_genre("DRama"))
 # print(len(library.get_movies_by_genre("DRama")))
+
+print(library.get_oldest_movie_title())

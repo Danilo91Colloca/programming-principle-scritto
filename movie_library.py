@@ -75,49 +75,56 @@ class MovieLibrary:
             print(e)
 
     def update_movie(self,title: str, director: str=None,year: int=None,genres: list=None):
-        __index = None
-        for index_item, key in enumerate(self.movies):
-            if key["title"].casefold() == title.casefold():
-                __index = index_item
-                break
-        if __index is not None:
-            match (director, year, genres):
-                case (None, None, None):
-                    pass
-                case (director, None, None):
-                    self.movies[__index].update({
-                        "director": director
-                    })
-                case (None, None, genres):
-                    self.movies[__index].update({
-                        "genres": genres
-                    })            
-                case (None, year, None):
-                    self.movies[__index].update({
-                        "year": year
-                    })            
-                case (director, None, genres):
-                    self.movies[__index].update({
-                        "director": director,
-                        "genres": genres
-                    })
-                case (director, year, None):
-                    self.movies[__index].update({
-                        "director": director,
-                        "year": year
-                    })            
-                case (None, year, genres):
-                    self.movies[__index].update({
-                        "year": year,
-                        "genres": genres
-                    })            
-                case (director,year,genres):
-                    self.movies[__index].update({
-                        "director":director,
-                        "year": year,
-                        "genres": genres
-                    })    
-            self.__update_json_file(self.movies)
+        try : 
+            __index = None
+            for index_item, key in enumerate(self.movies):
+                if key["title"].casefold() == title.casefold():
+                    __index = index_item
+                    break
+
+            if __index is not None :
+                match (director, year, genres):
+                    case (None, None, None):
+                        pass
+                    case (director, None, None):
+                        self.movies[__index].update({
+                            "director": director
+                        })
+                    case (None, None, genres):
+                        self.movies[__index].update({
+                            "genres": genres
+                        })            
+                    case (None, year, None):
+                        self.movies[__index].update({
+                            "year": year
+                        })            
+                    case (director, None, genres):
+                        self.movies[__index].update({
+                            "director": director,
+                            "genres": genres
+                        })
+                    case (director, year, None):
+                        self.movies[__index].update({
+                            "director": director,
+                            "year": year
+                        })            
+                    case (None, year, genres):
+                        self.movies[__index].update({
+                            "year": year,
+                            "genres": genres
+                        })            
+                    case (director,year,genres):
+                        self.movies[__index].update({
+                            "director":director,
+                            "year": year,
+                            "genres": genres
+                        })    
+                self.__update_json_file(self.movies)
+            else :
+                raise self.MovieNotFoundError
+                
+        except self.MovieNotFoundError as e :
+         print (e)
                 
     def get_movie_titles(self):
         __all_titles=[]
@@ -222,8 +229,8 @@ library = MovieLibrary(os.path.abspath("programming-principle-scritto/test.json"
 # print(library.get_movies())
 
 # library.add_movie("ciao","danny", 1500, ["speriamo", "bene"])
-library.remove_movie("ciao")
-# library.update_movie("gatto","Top",1500, ["forse", "top"])
+# library.remove_movie("ciao")
+library.update_movie("gatto","Top",1900, ["forse", "top"])
 
 # print(type(library.get_movie_titles()))
 # print(library.get_movie_titles())

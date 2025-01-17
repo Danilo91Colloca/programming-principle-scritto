@@ -101,7 +101,12 @@ class MovieLibrary:
         with open(self.json_file, "w", encoding="utf-8") as inside_movies:
             return json.dump(new_movie, inside_movies, indent=4)
 
-    def add_movie(self, title: str, director: str, year: int, genres: list):
+    def add_movie(self, 
+            title: str, 
+            director: str, 
+            year: int, 
+            genres: list
+            ) -> None:
         """
             Add new movie into the file which contain movies
 
@@ -120,15 +125,6 @@ class MovieLibrary:
             "genres": genres
         }
         self.movies.append(__data)
-        """
-            Invoke the private methods that update the movie's file.
-
-            GOOD THINGS TO DO
-            Including a check of the arguments and
-            their error messages is a desirable thing to do
-            before sending data.
-
-        """
         self.__update_json_file(self.movies)
 
     class MovieNotFoundError(Exception):
@@ -141,7 +137,7 @@ class MovieLibrary:
             self.errorMsg = "Movie was not found"
             super().__init__(self.errorMsg)
 
-    def remove_movie(self, title):
+    def remove_movie(self, title) -> None:
         """
             Remove movie from the file that contain all movies,
             ensuring title exist.
@@ -256,7 +252,6 @@ class MovieLibrary:
                 Return:
                     List with all movie titles
         """
-
         __all_titles = []
         for title in self.movies:
             __all_titles.append(title["title"])
@@ -264,9 +259,31 @@ class MovieLibrary:
         return __all_titles
 
     def count_movies(self) -> int:
+        """
+            Count how many movies are into the movie's file.
+
+            Returns:
+                int: The number of movies.
+
+        """
         return len(self.movies)
 
-    def get_movie_by_title(self, title: str):
+    def get_movie_by_title(self, title: str) -> dict:
+        """
+            Get a movie by title.
+
+            Args:
+                title (str): the title to search
+
+            Returns:
+                a dictornary of serached movie with:
+                title (str), 
+                director (str), 
+                year (int),
+                genres (list)
+
+        """
+
         __index = None
         for index_item, key in enumerate(self.movies):
             if key["title"].casefold() == title.casefold():
@@ -274,7 +291,18 @@ class MovieLibrary:
                 break
         return self.movies[__index]
 
-    def get_movie_by_title_substring(self, substring: str):
+    def get_movie_by_title_substring(self, substring: str) -> list:
+        """
+            Get movie by a substring.
+
+            Args:
+                substring (str): a words or few digits
+            
+            Return:
+                a list of movie that contain the args
+
+        """
+
         __movies_by_substring = []
         for index_item, key in enumerate(self.movies):
             if key["title"].find(substring) > -1:

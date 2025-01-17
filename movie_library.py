@@ -3,7 +3,7 @@ import collections
 import os
 
 """ DANILO COLLOCA s00014134 """
-"""Define Movie library class."""
+""" Define Movie library class. """
 
 
 class MovieLibrary:

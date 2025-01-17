@@ -2,22 +2,19 @@ import json
 import collections
 import os
 
-
-
 """Define Movie library class"""
 class MovieLibrary:
 
-
     """
-        A class rappresenting a library of movies with imports of all movies 
+        A class rappresenting a library of movies with imports of all movies
         and a collection of a movie that has title,director,year,genre
 
-        Attributes: 
+        Attributes:
             json_file:  
             movies: collection of film
     """
     
-    def __init__(self, json_file, movies):
+    def __init__(self, json_file: str, movies: list) :
         self.json_file = json_file
         self.movies = movies
 
@@ -34,14 +31,14 @@ class MovieLibrary:
         except FileNotFoundError as e:
             print(e)
 
-    def get_movies(self):
+    def get_movies(self) :
         return self.movies
     
     def __update_json_file(self, new_movie):
-        with open(self.json_file, "w", encoding="utf-8") as inside_movies:
+        with open(self.json_file, "w", encoding="utf-8") as inside_movies :
             return json.dump(new_movie, inside_movies, indent=4)
 
-    def add_movie(self, title:str, director:str, year:int, genres:list):
+    def add_movie(self, title: str, director: str, year: int, genres: list) :
         __data = {
             "title": title,
             "director": director,
@@ -51,20 +48,31 @@ class MovieLibrary:
         self.movies.append(__data)
         self.__update_json_file(self.movies)
     
-    def remove_movie(self, title):
-        __index = None
-        for index_item, key in enumerate(self.movies):
-            """ 
-            casefold() consent to ignore 
-            case-sensitiveness 
-            considering all in lowercase
-            """
-            if key["title"].casefold() == title.casefold():
-                __index = index_item
-                break
-        if __index is not None:
-            self.movies.pop(__index)
-            self.__update_json_file(self.movies)
+    class MovieNotFoundError(Exception) :
+        def __init__(self):
+            self.errorMsg = "Movie was not found"
+            super().__init__(self.errorMsg)
+
+
+    def remove_movie(self, title) :
+        try :
+            __index = None
+            for index_item, key in enumerate(self.movies) :
+                """ 
+                casefold() consent to ignore 
+                case-sensitiveness 
+                considering all in lowercase
+                """
+                if key["title"].casefold() == title.casefold() :
+                    __index = index_item
+                    break
+            if __index is not None:
+                self.movies.pop(__index)
+                self.__update_json_file(self.movies)
+            else :
+                raise self.MovieNotFoundError
+        except self.MovieNotFoundError as e:
+            print(e)
 
     def update_movie(self,title: str, director: str=None,year: int=None,genres: list=None):
         __index = None
@@ -195,16 +203,16 @@ file_json_path = f"{os.path.abspath("programming-principle-scritto/movies.json")
 """
 
 """test file json"""
-file_json_path_to_deserialize = os.path.abspath("programming-principle-scritto/test.json")  
+file_json_to_deserialize = os.path.abspath("programming-principle-scritto/test.json")  
 """ define function that deserialize json """       
 def jsonDeserializer(json_to_deserialize):
     with open(json_to_deserialize, "r") as all_movies:
         return json.load(all_movies)
 
-movies_list = jsonDeserializer(file_json_path_to_deserialize)
+movies_deserialized_list = jsonDeserializer(file_json_to_deserialize)
 
-file_json_to_modify = os.path.abspath("programming-principle-scritto/pest.json")
-library = MovieLibrary(file_json_to_modify, movies_list)
+
+library = MovieLibrary(os.path.abspath("programming-principle-scritto/test.json"), movies_deserialized_list)
 
 
 
@@ -214,7 +222,7 @@ library = MovieLibrary(file_json_to_modify, movies_list)
 # print(library.get_movies())
 
 # library.add_movie("ciao","danny", 1500, ["speriamo", "bene"])
-# library.remove_movie("ciao")
+library.remove_movie("ciao")
 # library.update_movie("gatto","Top",1500, ["forse", "top"])
 
 # print(type(library.get_movie_titles()))

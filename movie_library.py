@@ -2,39 +2,98 @@ import json
 import collections
 import os
 
-"""Define Movie library class"""
+"""Define Movie library class."""
 
 
 class MovieLibrary:
 
     """
-        A class rappresenting a library of movies with imports of all movies
-        and a collection of a movie that has title,director,year,genre
+        A class rappresenting a movie's library with
+        a json_file where get the file which contains
+        the movies and movies which contains a list
+        of dictionaries that contains title, director,
+        year and genres.
 
         Attributes:
-            json_file:
-            movies: collection of film
+            json_file (str): The file' s absolute path.
+            movies (list): collection of movies (dict).
+
     """
 
     def __init__(self, json_file: str, movies: list):
+        """
+            Inizialize a new MovieLibrary object with
+            file's absolute path and movie's list.
+
+            Args:
+                json_file (str): The file' s absolute path.
+                movies (list): collection of movies (dict).
+
+        """
+
         self.json_file = json_file
         self.movies = movies
 
         class FileNotFoundError(Exception):
+            """
+                Custom exception error rises
+                if file does not exist.
+
+            """
+
             def __init__(self):
+                """
+                    Inizialize the error message with
+                    the wring file name.
+
+                """
                 self.errorMsg = f"File not found: {json_file}"
+                """
+                    Return the object message to the parent class
+
+                """
                 super().__init__(self.errorMsg)
 
-        def check_file_exist(file_json):
+        def check_file_exist(file_json: str):
+            """
+                Check if the file exsist.
+
+                Args:
+                    file_json (str): The file to check.
+
+            """
             if not os.path.exists(file_json):
+                """
+                    If the file is not found
+                    raise the custom error:
+                    FileNotFoundError.
+
+                """
                 raise FileNotFoundError
 
         try:
+            """
+                Invoke the check_file_exist method.
+
+            """
             check_file_exist(self.json_file)
         except FileNotFoundError as e:
+            """
+               If error is raised print
+               the error.
+
+            """
             print(e)
 
     def get_movies(self):
+        """
+            Get the list that contain all movies.
+
+            return:
+                movies (list): The entire deserialized
+                json_file content.
+
+        """
         return self.movies
 
     def __update_json_file(self, new_movie):

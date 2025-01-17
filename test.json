@@ -108,5 +108,14 @@
             "forse",
             "top"
         ]
+    },
+    {
+        "title": "ciao",
+        "director": "danny",
+        "year": 1500,
+        "genres": [
+            "speriamo",
+            "bene"
+        ]
     }
 ]

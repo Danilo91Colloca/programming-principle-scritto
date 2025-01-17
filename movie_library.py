@@ -36,7 +36,7 @@ class MovieLibrary:
 
         class FileNotFoundError(Exception):
             """
-                Custom exception error rises
+                Custom Exception rises
                 if file does not exist.
 
             """
@@ -61,31 +61,19 @@ class MovieLibrary:
                 Args:
                     file_json (str): The file to check.
 
+                Raises:
+                    FileNotFoundError: if the file name or path
+                    is not found.
             """
             if not os.path.exists(file_json):
-                """
-                    If the file is not found
-                    raise the custom error:
-                    FileNotFoundError.
-
-                """
                 raise FileNotFoundError
 
         try:
-            """
-                Invoke the check_file_exist method.
-
-            """
             check_file_exist(self.json_file)
         except FileNotFoundError as e:
-            """
-               If error is raised print
-               the error.
-
-            """
             print(e)
 
-    def get_movies(self):
+    def get_movies(self) -> list:
         """
             Get the list that contain all movies.
 
@@ -97,10 +85,34 @@ class MovieLibrary:
         return self.movies
 
     def __update_json_file(self, new_movie):
+        """
+            Update the entire file that contain movie's data after 
+            any modification like, add new movie, remove a movie or update 
+            a movie.
+
+            Return
+                json.dump(arg1, arg2, param) :
+                arg1 = data to be serialized.
+                arg2 = object where arg1 is written.
+                param (indent = 4) = space of indentazion per level.
+
+        """
+
         with open(self.json_file, "w", encoding="utf-8") as inside_movies:
             return json.dump(new_movie, inside_movies, indent=4)
 
     def add_movie(self, title: str, director: str, year: int, genres: list):
+        """
+            Add new movie into the file which contain movies
+
+            Args:
+                title (str): the new movie's title.
+                director (str): the new movie's director.
+                year (int): the new movie's publication year.
+                genres (list): the new movie' s genres list.
+   
+        """
+
         __data = {
             "title": title,
             "director": director,
@@ -108,21 +120,46 @@ class MovieLibrary:
             "genres": genres
         }
         self.movies.append(__data)
+        """
+            Invoke the private methods that update the movie's file.
+
+            GOOD THINGS TO DO
+            Including a check of the arguments and 
+            their error messages is a desirable thing to do
+            before sending data.
+
+        """
         self.__update_json_file(self.movies)
 
     class MovieNotFoundError(Exception):
+        """
+            Custom Exception raises if a request movie
+            is not found into the file that contain all movies.
+        
+        """
         def __init__(self):
             self.errorMsg = "Movie was not found"
             super().__init__(self.errorMsg)
 
     def remove_movie(self, title):
+        """
+            Remove movie from the file that contain all movies,
+            ensuring title exist.
+
+            Args:
+                title (str): The title to be removed.
+
+            Risees:
+                MovieNotFoundError: if title is not found.
+        """
         try:
             __index = None
             for index_item, key in enumerate(self.movies):
                 """
-                casefold() consent to ignore
-                case-sensitiveness
-                considering all in lowercase
+                    casefold() is used to allow py
+                    to ignore case-sensitiveness
+                    considering all in lowercase
+
                 """
                 if key["title"].casefold() == title.casefold():
                     __index = index_item
@@ -136,11 +173,28 @@ class MovieLibrary:
             print(e)
 
     def update_movie(
-            self, title: str,
+            self,
+            title: str,
             director: str = None,
             year: int = None,
             genres: list = None
-            ):
+            ) -> None:
+        """
+            Update the movie into the file that contain
+            all movies.
+
+            Args:
+                title (str): the title of the movie to be updated
+
+                Optional args:
+                    director (str): the director.
+
+            Raises:
+                MovieNotFoundError: if movie to update is 
+                not found into the file that contain all movies.
+
+        """
+
         try:
             __index = None
             for index_item, key in enumerate(self.movies):
@@ -149,6 +203,10 @@ class MovieLibrary:
                     break
 
             if __index is not None:
+                """
+                    The use of match/case is less verbose than if/elif
+                
+                """
                 match (director, year, genres):
                     case (None, None, None):
                         pass
@@ -191,14 +249,21 @@ class MovieLibrary:
         except self.MovieNotFoundError as e:
             print(e)
 
-    def get_movie_titles(self):
+    def get_movie_titles(self) -> list:
+        """
+            Get all titles of the movies 
+
+                Return:
+                    List with all movie titles
+        """
+
         __all_titles = []
         for title in self.movies:
             __all_titles.append(title["title"])
 
         return __all_titles
 
-    def count_movies(self):
+    def count_movies(self) -> int:
         return len(self.movies)
 
     def get_movie_by_title(self, title: str):
@@ -339,3 +404,4 @@ library = MovieLibrary(
 # print(library.get_titles_betweens_years(1990,1995))
 
 # print(library.get_most_common_year())
+

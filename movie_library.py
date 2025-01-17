@@ -101,10 +101,11 @@ class MovieLibrary:
         with open(self.json_file, "w", encoding="utf-8") as inside_movies:
             return json.dump(new_movie, inside_movies, indent=4)
 
-    def add_movie(self, 
-            title: str, 
-            director: str, 
-            year: int, 
+    def add_movie(
+            self,
+            title: str,
+            director: str,
+            year: int,
             genres: list
             ) -> None:
         """
@@ -277,8 +278,8 @@ class MovieLibrary:
 
             Returns:
                 a dictornary of serached movie with:
-                title (str), 
-                director (str), 
+                title (str),
+                director (str),
                 year (int),
                 genres (list)
 
@@ -297,7 +298,7 @@ class MovieLibrary:
 
             Args:
                 substring (str): a words or few digits
-            
+
             Return:
                 a list of movie that contain the args
 
@@ -320,7 +321,7 @@ class MovieLibrary:
                 list: that contain all movies released in
                 that specific year.
         """
-        
+
         __index = None
         __all_movies_by_year = []
         for index_item, key in enumerate(self.movies):
@@ -335,7 +336,7 @@ class MovieLibrary:
 
             Args:
                 director (str): The director's name.
-            
+
             Return:
                 int: the number of the movies.
 
@@ -355,7 +356,7 @@ class MovieLibrary:
                 genre (str): The name of genre
 
             Return:
-                list: List of movies with the specific genre 
+                list: List of movies with the specific genre
 
         """
 
@@ -372,9 +373,9 @@ class MovieLibrary:
 
             Return:
                 str: the title of oldest movie into the file movies
-        
+
         """
-        
+
         __reorderd_movies_list = sorted(
             self.movies,
             key=lambda x: x['year']
@@ -389,7 +390,7 @@ class MovieLibrary:
                 float: The result of average calculation.
 
         """
-        
+
         __all_years_to_sum = []
         for index_item, key in enumerate(self.movies):
             __all_years_to_sum.append(float(key["year"]))
@@ -403,7 +404,7 @@ class MovieLibrary:
                 str: The longest title.
 
         """
-        
+
         __longest_title = sorted(
             self.movies,
             key=lambda k: len(k["title"]),
@@ -412,17 +413,17 @@ class MovieLibrary:
         return __longest_title[0]["title"]
 
     def get_titles_betweens_years(
-        self,
-        start_year: int,
-        end_year: int
-        ) -> list:
+            self,
+            start_year: int,
+            end_year: int
+            ) -> list:
         """
-            Get movie's titles that are released between two year 
+            Get movie's titles that are released between two year
             (including start/end years).
 
             Args:
                 start_year (int): start range year.
-                end_year (int): end range year. 
+                end_year (int): end range year.
 
             Return:
                 list: List of titles.
@@ -434,7 +435,6 @@ class MovieLibrary:
             if key["year"] >= start_year and key["year"] <= end_year:
                 __title_list_list.append(key["title"])
         return __title_list_list
-
 
     def get_most_common_year(self) -> int:
         """
@@ -457,12 +457,13 @@ file_json_to_deserialize = f"{
     os.path.abspath("programming-principle-scritto/movies.json")
     }"
 
+
 def jsonDeserializer(json_to_deserialize) -> list:
     """
         Deserialize file json
-    
+
     """
-    
+
     with open(json_to_deserialize, "r") as all_movies:
         return json.load(all_movies)
 

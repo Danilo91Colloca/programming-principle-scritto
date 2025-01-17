@@ -1,14 +1,7 @@
 import json
 import collections
-"""
-production file json
+import os
 
-file_json_path =
-"/Applications/MAMP/htdocs/programming-principle-scritto/movies.json"
-"""
-
-"""test file json"""
-file_json_path = "/Applications/MAMP/htdocs/programming-principle-scritto/test.json"
 
 
 """Define Movie library class"""
@@ -23,9 +16,23 @@ class MovieLibrary:
             json_file:  
             movies: collection of film
     """
+    
     def __init__(self, json_file, movies):
         self.json_file = json_file
-        self.movies = movies   
+        self.movies = movies
+
+        class FileNotFoundError(Exception):    
+            def __init__(self):
+                self.errorMsg = f"File not found: {json_file}"
+                super().__init__(self.errorMsg)
+        def check_file_exist(file_json):
+            if not os.path.exists(file_json):
+                raise FileNotFoundError
+
+        try:
+            check_file_exist(self.json_file)
+        except FileNotFoundError as e:
+            print(e)
 
     def get_movies(self):
         return self.movies
@@ -180,19 +187,34 @@ class MovieLibrary:
             __all_years.append(key["year"])
         __count_most_common = collections.Counter(__all_years)     
         return __count_most_common.most_common()[0][0]
-    
+
+"""
+production file json
+
+file_json_path = f"{os.path.abspath("programming-principle-scritto/movies.json")}"
+"""
+
+"""test file json"""
+file_json_path_to_deserialize = os.path.abspath("programming-principle-scritto/test.json")  
 """ define function that deserialize json """       
 def jsonDeserializer(json_to_deserialize):
     with open(json_to_deserialize, "r") as all_movies:
         return json.load(all_movies)
-    
-movies_list = jsonDeserializer(file_json_path)
 
-library = MovieLibrary(file_json_path, movies_list)
+movies_list = jsonDeserializer(file_json_path_to_deserialize)
+
+file_json_to_modify = os.path.abspath("programming-principle-scritto/pest.json")
+library = MovieLibrary(file_json_to_modify, movies_list)
+
+
+
+
+
+
 # print(library.get_movies())
 
 # library.add_movie("ciao","danny", 1500, ["speriamo", "bene"])
-# library.remove_movie("TEST")
+# library.remove_movie("ciao")
 # library.update_movie("gatto","Top",1500, ["forse", "top"])
 
 # print(type(library.get_movie_titles()))
@@ -217,3 +239,4 @@ library = MovieLibrary(file_json_path, movies_list)
 # print(library.get_longest_title())
 # print(library.get_titles_betweens_years(1990,1995))
 # print(library.get_most_common_year())
+

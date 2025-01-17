@@ -1,6 +1,6 @@
 [
     {
-        "title": "The Godfather TEST",
+        "title": "The Godfather",
         "director": "Francis Ford Coppola",
         "year": 1972,
         "genres": [
@@ -92,21 +92,12 @@
         ]
     },
     {
-        "title": "test",
+        "title": "ciao",
         "director": "danny",
-        "year": 1991,
+        "year": 1500,
         "genres": [
             "speriamo",
             "bene"
-        ]
-    },
-    {
-        "title": "gatto",
-        "director": "Top",
-        "year": 1900,
-        "genres": [
-            "forse",
-            "top"
         ]
     },
     {

@@ -471,23 +471,27 @@ def jsonDeserializer(json_to_deserialize) -> list:
 movies_deserialized_list = jsonDeserializer(file_json_to_deserialize)
 
 movie_library = MovieLibrary(
-    os.path.abspath("programming-principle-scritto/test.json"),
+    os.path.abspath("programming-principle-scritto/movies.json"),
     movies_deserialized_list
 )
 
 # print(type(jsonDeserializer(file_json_to_deserialize)))
+# print(type(movie_library.get_movies()))
 # print(movie_library.get_movies())
 
-# movie_library.add_movie("ciao","danny", 1500, ["speriamo", "bene"])
+# movie_library.add_movie("Eraserhead", "David Lynch", 1977, ["Surrealist", "Body", "Horror"])
 
-# movie_library.remove_movie("ciao")
+# movie_library.remove_movie("Eraserhead")
 
-# movie_library.update_movie("gatto","Top",1900, ["forse", "top"])
+# movie_library.update_movie("gatto","Test raise error")
+# movie_library.update_movie("The Matrix", "Change director")
+# movie_library.update_movie("The Matrix", None,1991)
+# movie_library.update_movie("The Matrix", None, None, ["change", "genres"])
 
 # print(type(movie_library.get_movie_titles()))
-
 # print(movie_library.get_movie_titles())
 
+# print(type(movie_library.count_movies()))
 # print(movie_library.count_movies())
 
 # print(movie_library.get_movie_by_title("the matrix"))
@@ -498,12 +502,12 @@ movie_library = MovieLibrary(
 
 # print(movie_library.count_movies_by_director("Christopher NOLAN"))
 
-# print(movie_library.get_movies_by_genre("DRama"))
-
 # print(len(movie_library.get_movies_by_genre("DRama")))
+# print(movie_library.get_movies_by_genre("DRama"))
 
 # print(movie_library.get_oldest_movie_title())
 
+# print(type(movie_library.get_average_release_year()))
 # print(movie_library.get_average_release_year())
 
 # print(type(movie_library.get_average_release_year()))

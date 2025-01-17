@@ -86,8 +86,8 @@ class MovieLibrary:
 
     def __update_json_file(self, new_movie):
         """
-            Update the entire file that contain movie's data after 
-            any modification like, add new movie, remove a movie or update 
+            Update the entire file that contain movie's data after
+            any modification like, add new movie, remove a movie or update
             a movie.
 
             Return
@@ -110,7 +110,7 @@ class MovieLibrary:
                 director (str): the new movie's director.
                 year (int): the new movie's publication year.
                 genres (list): the new movie' s genres list.
-   
+
         """
 
         __data = {
@@ -124,7 +124,7 @@ class MovieLibrary:
             Invoke the private methods that update the movie's file.
 
             GOOD THINGS TO DO
-            Including a check of the arguments and 
+            Including a check of the arguments and
             their error messages is a desirable thing to do
             before sending data.
 
@@ -135,7 +135,7 @@ class MovieLibrary:
         """
             Custom Exception raises if a request movie
             is not found into the file that contain all movies.
-        
+
         """
         def __init__(self):
             self.errorMsg = "Movie was not found"
@@ -190,7 +190,7 @@ class MovieLibrary:
                     director (str): the director.
 
             Raises:
-                MovieNotFoundError: if movie to update is 
+                MovieNotFoundError: if movie to update is
                 not found into the file that contain all movies.
 
         """
@@ -205,7 +205,7 @@ class MovieLibrary:
             if __index is not None:
                 """
                     The use of match/case is less verbose than if/elif
-                
+
                 """
                 match (director, year, genres):
                     case (None, None, None):
@@ -251,7 +251,7 @@ class MovieLibrary:
 
     def get_movie_titles(self) -> list:
         """
-            Get all titles of the movies 
+            Get all titles of the movies
 
                 Return:
                     List with all movie titles
@@ -404,4 +404,3 @@ library = MovieLibrary(
 # print(library.get_titles_betweens_years(1990,1995))
 
 # print(library.get_most_common_year())
-
